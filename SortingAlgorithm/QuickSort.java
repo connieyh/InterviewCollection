@@ -1,37 +1,33 @@
 /**
  @see http://www.algolist.net/Algorithms/Sorting/Quicksort
+ @see http://algorithmsandme.com/2013/08/quicksort-algorithm-in-c/
 */
 public class QuickSort {
+	//In fact, when doing swap. use ++j will be betther. 
+	//But j should be initilized as left
 	public static int partition(int[] num, int left, int right) {
-		int pivot = num[(left+right)/2];
-		// System.out.println("pivot= " + pivot + " left= " + left + " right= " + right);
-		while(left < right) {
-			// System.out.println("left= "+left+" right= "+right);
-			while(num[left] < pivot) {
-				left++;
-			}
-			while(num[right] > pivot) {
-				right--;
-			}
-			if(left <= right) {
-				swap(num, left, right);
-				left++;
-				right--;
-				// System.out.println("---- During partition ---- ");
-				// for(int n : num) {
-				// 	System.out.printf("%d ", n);
-				// }
-				// System.out.printf("\n");
+		int part = left;
+		int j = left+1;
+		for(int i = left+1; i<=right; i++) {
+			if(num[i] < num[part]) {
+				swap(num, i, j); 
+				j++;
 			}
 		}
+		//If using ++j, we don't have to minus 1. 
+		if(j-1 < right) {
+			swap(num, j-1, part);	
+		}
+		return j-1; 
+	}
 
-		// System.out.println("**** After partition ****");
-		// for(int n : num) {
-		// 	System.out.printf("%d ", n);
-		// }
-		// System.out.printf("\n");
-
-		return left;
+	public static void quickSort(int[] num, int left, int right) {
+		if(left < right) {
+			int part = partition(num, left, right);
+			quickSort(num, left, part);	
+			quickSort(num, part+1, right);	
+		}
+		return;
 	}
 
 	public static void swap(int[] num, int left, int right) {
@@ -40,28 +36,15 @@ public class QuickSort {
 		num[right] = tmp;
 	}
 
-	public static void quickSort(int[] num, int left, int right) {
-		int cur = partition(num, left, right);
-		// System.out.printf("cur=%d\n",cur);
-		if(left < cur-1) {
-			quickSort(num, left, cur-1);
-		}
-		if(right > cur) {
-			quickSort(num, cur, right);
-		}
-	}
-
 	public static void main(String[] args) {
-		int[] num = {1, 12, 5, 26, 7, 14, 3, 7, 2};
+		int[] num = { 1, 12, 5, 26, 7, 14, 3, 7, 2};
 		quickSort(num, 0, num.length-1);
-		
 		System.out.println("num in Main");
 		for(int n : num) {
 			System.out.printf("%d ", n);
 		}
 		System.out.printf("\n");
 	}
-	
 }
 
 /*
