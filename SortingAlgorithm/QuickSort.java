@@ -3,22 +3,19 @@
  @see http://algorithmsandme.com/2013/08/quicksort-algorithm-in-c/
 */
 public class QuickSort {
-	//In fact, when doing swap. use ++j will be betther. 
-	//But j should be initilized as left
 	public static int partition(int[] num, int left, int right) {
 		int part = left;
-		int j = left+1;
+		int j = left;
 		for(int i = left+1; i<=right; i++) {
 			if(num[i] < num[part]) {
-				swap(num, i, j); 
-				j++;
+				swap(num, i, ++j); 
 			}
 		}
 		//If using ++j, we don't have to minus 1. 
-		if(j-1 < right) {
-			swap(num, j-1, part);	
+		if(j <= right) {
+			swap(num, j, part);	
 		}
-		return j-1; 
+		return j; 
 	}
 
 	public static void quickSort(int[] num, int left, int right) {
@@ -37,7 +34,9 @@ public class QuickSort {
 	}
 
 	public static void main(String[] args) {
-		int[] num = { 1, 12, 5, 26, 7, 14, 3, 7, 2};
+		// int[] num = { 1, 12, 5, 26, 7, 14, 3, 7, 2};
+		// int[] num = { 16,3,5,4,12,7};
+		int[] num = { 100,3,2, 47, 39, 101};
 		quickSort(num, 0, num.length-1);
 		System.out.println("num in Main");
 		for(int n : num) {
