@@ -33,12 +33,12 @@ class MyLinkedList {
 
 public class ReverseHalfList {
 	public static ListNode reverseHalf(ListNode head) {
-		ListNode preMid = findMid(head);
-		ListNode last = doReverse(preMid);
+		ListNode preMid = findPremid(head);
+		ListNode last = doReverse(preMid.next);
 		preMid.next = last;
 		return head;
 	}
-	public static ListNode findMid(ListNode head) {
+	public static ListNode findPremid(ListNode head) {
 		ListNode run = head;
 		ListNode mid = head;
 		ListNode preMid = null;
@@ -50,8 +50,9 @@ public class ReverseHalfList {
 		return preMid;
 	}
 	public static ListNode doReverse(ListNode head) {
+		if(head==null) {return null;}
 		ListNode pre = null;
-		ListNode cur = head.next;
+		ListNode cur = head;
 		while(cur!=null) {
 			ListNode n = cur.next;
 			cur.next = pre;
