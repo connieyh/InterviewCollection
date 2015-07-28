@@ -5,36 +5,48 @@ different symptoms of the allergy that are detected, severity,
 method that returns when was that allergy detected in that patient. */
 
 
-public class PatientAllergy {
-	int patientId;
-	String allergy;
-	String allergyReporter;
-	Set<String> symptoms = new HashSet<String>();
-	// String severity;
-	Date foundDate;
+class Allergy {
+	String allergyName;
+	List<String> symptoms;
+	String reporter;
+	String severity;
+	String foundDate;
 
-	public PatientAllergy(int patientId) {
-		this.patientId = patientId;
+	Allergy() {
+		this("");
 	}
 
-	private void setAllergy(String allergyReporter, String foundAllergyDate) {
-		this.allergyReporter = allergyReporter;
-		// parse foundAllergyDate to store to foundDate
+	Allergy(String allergyName) {
+		this.allergyName = allergyName;
+		symptoms = new ArrayList<String>();
 	}
-	public void setSymptoms(String symp) {
-		symptoms.add(symp);
+
+	void setReporterAndDate(String reporter, String foundDate) {
+		this.reporter = reporter;
+		this.foundDate = foundDate;
 	}
-	public String getAllergy() {
-		return allergy;
+
+	void addSymptom(String symptom) {
+		symptoms.add(symptom);
 	}
-	public Date getAllergyFoundDate() {
+
+	String getReporter() {
+		return reporter;
+	}
+
+	String getAllergyFoundDate() {
 		return foundDate;
 	}
-	public String getSeverity() {
-		if(symptoms.size() > 3) {
-			return "Severe";
-		}
-		return "Mild";
+
+}
+
+
+class Patient {
+	int patientId;
+	List<Allergy> allergyList;
+
+	Patient() {
+		this.allergyList = new ArrayList<Allergy>();
 	}
 
 }
